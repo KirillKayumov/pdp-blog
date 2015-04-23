@@ -31,6 +31,8 @@ gem 'kaminari'
 gem 'rollbar', '~> 0.10.3'
 gem 'seedbank'
 gem 'thin'
+gem 'draper'
+gem 'faker'
 
 group :staging, :production do
   gem 'rails_12factor'

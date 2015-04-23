@@ -1,0 +1,14 @@
+.row
+  .small-12.medium-8.small-centered.columns
+    article.article
+      h1.title
+        = article.title
+      .text
+        - article.truncated_text_by_paragraphs.each do |paragraph|
+          p
+            = paragraph
+      footer
+        = article.created_at
+        '  by
+        = article.user.full_name
+    hr

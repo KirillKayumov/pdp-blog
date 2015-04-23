@@ -1,12 +1,14 @@
-nav.top-bar( data-topbar )
+.row
+  nav.top-bar( data-topbar )
+    ul.title-area
+      li.name
+        h1
+          = link_to t('titles.application'), root_path
 
-  ul.title-area
-    li.name
-      h1= link_to t('titles.application'), root_path
-    li.toggle-topbar
-      = link_to '#' do
-        i.fi-list
-
-  section.top-bar-section
-    = render 'navigation_main'
-    = render 'navigation_user'
+    section.top-bar-section
+      ul.right
+        - if user_signed_in?
+          = active_link_to t('app.navigation.sign_out'), destroy_user_session_path, wrap_tag: :li
+        - else
+          = active_link_to t('app.navigation.sign_up'), new_user_registration_path, active: [['devise/registrations'], ['new', 'create']], wrap_tag: :li
+          = active_link_to t('app.navigation.sign_in'), new_user_session_path, active: [['devise/sessions'], ['new', 'create']], wrap_tag: :li
