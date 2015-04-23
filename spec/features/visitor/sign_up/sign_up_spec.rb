@@ -23,7 +23,7 @@ feature 'Sign up' do
     open_email(user.email)
     visit_in_email 'Confirm my account'
 
-    expect(page).to have_text(user.email)
+    expect(page).to have_text('Your account was successfully confirmed.')
   end
 
   scenario 'User resents email confirmation instructions' do

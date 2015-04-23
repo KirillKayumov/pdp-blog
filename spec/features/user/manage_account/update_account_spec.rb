@@ -16,7 +16,7 @@ feature 'Update account with valid data' do
 
     click_button 'Update'
 
-    expect(page).to have_content('New Name')
+    expect(page).to have_content('You updated your account successfully.')
   end
 
   scenario 'Wrong current password' do

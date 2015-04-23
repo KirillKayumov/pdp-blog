@@ -21,8 +21,7 @@ html class="no-js" lang="en"
       = render "navigation"
       = render "messages"
 
-      = yield
-
-    = render "footer"
+      main.row
+        = yield
 
     = javascript_include_tag :application
