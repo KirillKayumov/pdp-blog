@@ -2,7 +2,7 @@
   .small-12.medium-8.small-centered.columns
     article.article
       h1.title
-        = article.title
+        = link_to article.title, article
       .text
         - article.truncated_text_by_paragraphs.each do |paragraph|
           p
