@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'View articles' do
+feature 'Articles index' do
   let!(:article1) { create :article }
   let!(:article2) { create :article }
 
