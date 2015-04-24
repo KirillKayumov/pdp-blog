@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
-  before_action :authenticate_user!, only: %i(new create edit update)
-  before_action :require_permission, only: %i(create edit update)
+  before_action :authenticate_user!, only: %i(new create edit update destroy)
+  before_action :require_permission, only: %i(create edit update destroy)
 
   expose(:decorated_articles) { Article.ordered.includes(:user).decorate }
   expose(:article, attributes: :article_params)
@@ -32,6 +32,11 @@ class ArticlesController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    article.destroy!
+    redirect_to root_path, notice: t('app.messages.article.destroyed')
   end
 
   private

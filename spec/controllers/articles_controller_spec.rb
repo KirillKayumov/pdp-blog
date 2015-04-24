@@ -227,4 +227,44 @@ describe ArticlesController, type: :controller do
       end
     end
   end
+
+  describe '#destroy' do
+    context 'user is not signed in' do
+      let(:article) { create :article }
+
+      before(:each) { delete :update, id: article.id }
+
+      it 'redirects to sign in page' do
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context 'user is signed in' do
+      let(:user) { create :user }
+
+      before(:each) { sign_in user }
+
+      context 'user deletes his article' do
+        let!(:article) { create :article, user: user }
+
+        it 'deletes the article' do
+          expect { delete :destroy, id: article.id }.to change { Article.count }.by(-1)
+        end
+
+        it 'redirects to home page' do
+          delete :destroy, id: article.id
+
+          expect(response).to redirect_to(root_path)
+        end
+      end
+
+      context 'user deletes not his article' do
+        let!(:article) { create :article }
+
+        it 'does not delete the article' do
+          expect { delete :destroy, id: article.id }.not_to change { Article.count }
+        end
+      end
+    end
+  end
 end
