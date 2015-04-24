@@ -10,4 +10,6 @@
       = decorated_article.created_at
       '  by
       = decorated_article.user_full_name
-
+      - if policy(article).edit?
+        '  |
+        = link_to t('app.actions.edit'), edit_article_path(decorated_article)

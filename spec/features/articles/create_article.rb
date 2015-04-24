@@ -8,7 +8,7 @@ feature 'Creating article' do
       new_article
     end
 
-    scenario 'User tries to create article' do
+    scenario 'User can not to create article' do
       expect(page).to have_content('You need to sign in or sign up before continuing.')
     end
   end
