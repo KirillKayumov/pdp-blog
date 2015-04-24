@@ -184,14 +184,37 @@ describe ArticlesController, type: :controller do
       context 'user edits his article' do
         let(:article) { create :article, user: user }
 
-        before(:each) { put :update, params }
+        context 'with valid parameters' do
+          before(:each) { put :update, params }
 
-        it 'updates the article' do
-          expect(article.reload.title).to eq('New title')
+          it 'updates the article' do
+            expect(article.reload.title).to eq('New title')
+          end
+
+          it 'redirects to article page' do
+            expect(response).to redirect_to(article)
+          end
         end
 
-        it 'redirects to article page' do
-          expect(response).to redirect_to(article)
+        context 'with invalid parameters' do
+          let(:invalid_params) do
+            {
+              id: article.id,
+              article: {
+                title: ''
+              }
+            }
+          end
+
+          before(:each) { put :update, invalid_params }
+
+          it 'does not update the article' do
+            expect(article.reload.title).not_to eq('New title')
+          end
+
+          it 'renders form' do
+            expect(response).to render_template(:edit)
+          end
         end
       end
 
