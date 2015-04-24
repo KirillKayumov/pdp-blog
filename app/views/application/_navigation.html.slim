@@ -6,6 +6,9 @@
           = link_to t('titles.application'), root_path
 
     section.top-bar-section
+      ul.left
+        = active_link_to t('app.navigation.new_article'), new_article_path, active: [['articles'], ['new', 'create']], wrap_tag: :li
+
       ul.right
         - if user_signed_in?
           = active_link_to t('app.navigation.sign_out'), destroy_user_session_path, wrap_tag: :li

@@ -10,8 +10,6 @@ feature 'Show article' do
   end
 
   scenario 'I see an article' do
-    expect(page).to have_content(decorated_article.title)
-    expect(page).to have_content(decorated_article.text)
-    expect(page).to have_content(decorated_article.created_at)
+    expect_to_see_article(decorated_article)
   end
 end

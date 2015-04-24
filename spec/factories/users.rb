@@ -4,9 +4,6 @@ FactoryGirl.define do
     full_name { 'Name Surname' }
     password '123456'
     password_confirmation '123456'
-  end
-
-  trait :confirmed do
     confirmed_at 1.hour.ago
   end
 

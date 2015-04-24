@@ -9,7 +9,7 @@ feature 'Articles index' do
   end
 
   scenario 'I see articles' do
-    expect(page).to have_content(article1.title)
-    expect(page).to have_content(article2.title)
+    expect_to_see_article(article1.decorate)
+    expect_to_see_article(article2.decorate)
   end
 end

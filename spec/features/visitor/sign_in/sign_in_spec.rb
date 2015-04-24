@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'Sign in' do
-  let(:user) { create :user, :confirmed }
+  let(:user) { create :user }
   let(:not_confirmed_user) { create :user, :not_confirmed }
 
   scenario 'User signs in successfully' do

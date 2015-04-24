@@ -17,6 +17,11 @@ en:
       confirmations:
         new: Didn't receive confirmation instructions?
 
+  helpers:
+    submit:
+      article:
+        create: 'Save'
+
   app:
     user:
       sign_in:
@@ -66,6 +71,11 @@ en:
       sign_out: 'Sign out'
       sign_up: 'Sign up'
       edit_profile: 'Edit profile'
+      new_article: 'Write an article'
+
+    messages:
+      article:
+        success: 'Article succesfully created.'
 
   time:
     formats:
