@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'Update account with valid data' do
-  let(:user) { create :user, :confirmed }
+  let(:user) { create :user }
 
   before(:each) do
     sign_in(user.email, '123456')

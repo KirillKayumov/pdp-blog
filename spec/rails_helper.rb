@@ -21,6 +21,8 @@ RSpec.configure do |config|
 
   config.include Formulaic::Dsl, type: :feature
   config.include DeviseHelpers, type: :feature
+  config.include Devise::TestHelpers, type: :controller
+  config.include ArticleHelpers, type: :feature
 
   config.before do
     ActionMailer::Base.deliveries.clear

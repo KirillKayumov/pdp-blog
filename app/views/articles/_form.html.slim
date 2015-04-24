@@ -1,0 +1,5 @@
+= simple_form_for article, html: { class: 'article-form' } do |f|
+  = f.input :title, placeholder: true, autofocus: true
+  = f.input :text, placeholder: true, input_html: { rows: 20 }
+  = f.input :user_id, as: :hidden, input_html: { value: current_user.id }
+  = f.button :submit, class: 'small'
