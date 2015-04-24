@@ -9,4 +9,5 @@ class ArticlePolicy
   end
   alias_method :create?, :edit?
   alias_method :update?, :edit?
+  alias_method :destroy?, :edit?
 end

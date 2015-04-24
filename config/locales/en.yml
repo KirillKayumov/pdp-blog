@@ -78,10 +78,14 @@ en:
       article:
         created: 'Article succesfully created.'
         updated: 'Article succesfully updated.'
+        destroyed: 'Article succesfully deleted.'
       access_denied: 'You do not have access rights.'
+      fail: 'Something went wrong.'
+      sure: 'Are you sure?'
 
     actions:
       edit: 'Edit'
+      destroy: 'Delete'
 
   time:
     formats:
