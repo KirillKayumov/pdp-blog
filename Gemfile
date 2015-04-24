@@ -33,6 +33,7 @@ gem 'seedbank'
 gem 'thin'
 gem 'draper'
 gem 'faker'
+gem 'pundit'
 
 group :staging, :production do
   gem 'rails_12factor'

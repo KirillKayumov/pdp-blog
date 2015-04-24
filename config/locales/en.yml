@@ -21,6 +21,7 @@ en:
     submit:
       article:
         create: 'Save'
+        update: 'Save'
 
   app:
     user:
@@ -75,7 +76,12 @@ en:
 
     messages:
       article:
-        success: 'Article succesfully created.'
+        created: 'Article succesfully created.'
+        updated: 'Article succesfully updated.'
+      access_denied: 'You do not have access rights.'
+
+    actions:
+      edit: 'Edit'
 
   time:
     formats:
