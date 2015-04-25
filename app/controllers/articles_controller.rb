@@ -2,7 +2,13 @@ class ArticlesController < ApplicationController
   before_action :authenticate_user!, only: %i(new create edit update destroy)
   before_action :require_permission, only: %i(create edit update destroy)
 
-  expose(:decorated_articles) { Article.ordered.includes(:user).decorate }
+  expose(:all_articles) do
+    Article
+      .ordered
+      .includes(:user)
+      .paginate(page: params[:page], per_page: 5)
+  end
+  expose(:decorated_articles) { all_articles.decorate }
   expose(:article, attributes: :article_params)
   expose(:decorated_article) { article.decorate }
   expose(:comments) { article.comments.ordered.includes(:user) }
