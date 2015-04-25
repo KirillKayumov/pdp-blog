@@ -5,6 +5,8 @@ class ArticlePolicy
   end
 
   def edit?
+    return false unless @user.present?
+
     @article.user_id == @user.id
   end
   alias_method :create?, :edit?

@@ -13,3 +13,5 @@ en:
       article:
         title: 'Enter a title'
         text: 'Write something special'
+      comment:
+        text: 'Write your comment'

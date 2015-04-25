@@ -1,0 +1,10 @@
+article.comment
+  header
+    .comment-author
+      = comment.user_full_name
+    .comment-date
+      = comment.created_at
+
+  - comment.text_by_paragraphs.each do |paragraph|
+    p
+      = paragraph

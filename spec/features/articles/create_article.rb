@@ -28,7 +28,7 @@ feature 'Creating article' do
 
       expect(current_path).to eq(root_path)
       expect(page).to have_content('Article succesfully created.')
-      expect_to_see_article
+      expect_to_see_article(Article.last.decorate)
     end
 
     scenario 'User saves blank article' do

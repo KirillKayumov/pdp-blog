@@ -5,6 +5,8 @@ class ArticlesController < ApplicationController
   expose(:decorated_articles) { Article.ordered.includes(:user).decorate }
   expose(:article, attributes: :article_params)
   expose(:decorated_article) { article.decorate }
+  expose(:comments) { article.comments.ordered.includes(:user) }
+  expose(:decorated_comments) { comments.decorate }
 
   def index
   end
@@ -47,10 +49,6 @@ class ArticlesController < ApplicationController
       :text,
       :user_id
     )
-  end
-
-  def require_permission
-    redirect_to root_path, alert: t('app.messages.access_denied') unless access_allowed?
   end
 
   def access_allowed?

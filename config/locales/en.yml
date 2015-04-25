@@ -22,6 +22,8 @@ en:
       article:
         create: 'Save'
         update: 'Save'
+      comment:
+        create: 'Send'
 
   app:
     user:
@@ -86,6 +88,9 @@ en:
     actions:
       edit: 'Edit'
       destroy: 'Delete'
+
+    comments:
+      title: 'Comments:'
 
   time:
     formats:

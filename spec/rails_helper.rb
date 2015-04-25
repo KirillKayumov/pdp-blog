@@ -24,6 +24,8 @@ RSpec.configure do |config|
   config.include DeviseHelpers, type: :feature
   config.include Devise::TestHelpers, type: :controller
   config.include ArticleHelpers, type: :feature
+  config.include CommentHelpers, type: :feature
+  config.include WaitForAjax, type: :feature
 
   config.before do
     ActionMailer::Base.deliveries.clear

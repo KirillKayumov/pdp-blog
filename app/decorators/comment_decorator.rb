@@ -1,7 +1,7 @@
-class ArticleDecorator < BaseDecorator
+class CommentDecorator < BaseDecorator
   decorates_association :user
 
-  delegate :title, :text
+  delegate :text
   delegate :full_name, to: :user, prefix: true
 
   def text_by_paragraphs

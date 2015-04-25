@@ -1,0 +1,37 @@
+.comments-block {
+  margin-top: 50px;
+
+  .block-header {
+    font-size: 26px;
+    margin-bottom: 10px;
+  }
+
+  .comment {
+    margin-bottom: 20px;
+
+    header {
+      border-bottom: 1px solid #ccc;
+
+      .comment-date {
+        float: right;
+        display: inline;
+        color: #999;
+      }
+
+      .comment-author {
+        font-weight: bold;
+        display: inline;
+      }
+    }
+
+    p {
+      margin-bottom: 0px;
+    }
+  }
+}
+
+.comment-form {
+  .text {
+    margin-bottom: 5px;
+  }
+}

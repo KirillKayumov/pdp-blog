@@ -10,4 +10,9 @@ module ArticleHelpers
     expect(page).to have_content(decorated_article.created_at)
     expect(page).to have_content(decorated_article.user_full_name)
   end
+
+  def go_to_article(decorated_article)
+    visti root_path
+    click_link decorated_article.title
+  end
 end

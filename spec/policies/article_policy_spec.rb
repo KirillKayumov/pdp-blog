@@ -21,5 +21,13 @@ describe ArticlePolicy do
         expect(subject).not_to permit(user, article)
       end
     end
+
+    context 'user is not signed in' do
+      let(:article) { create :article }
+
+      it 'denies access' do
+        expect(subject).not_to permit(nil, article)
+      end
+    end
   end
 end
