@@ -2,4 +2,5 @@
   - decorated_articles.each do |article|
     = render 'article', article: article
 
-  = will_paginate all_articles, class: 'apple_pagination'
+  .row
+    = will_paginate all_articles
