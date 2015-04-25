@@ -6,8 +6,7 @@ feature 'Creating comment', js: true do
 
   before(:each) do
     sign_in user.email, user.password
-    visit root_path
-    click_link article.title
+    go_to_article(article.decorate)
   end
 
   scenario 'User sends a comment' do

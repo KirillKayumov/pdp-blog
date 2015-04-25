@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
   respond_to :js
 
-  before_action :authenticate_user!, only: :create
-  before_action :require_permission, only: :create
+  before_action :authenticate_user!, only: %i(create destroy)
+  before_action :require_permission, only: %i(create destroy)
 
   expose(:article)
   expose(:comments, ancestor: :article)
@@ -11,6 +11,11 @@ class CommentsController < ApplicationController
 
   def create
     comment.save
+    respond_with comment
+  end
+
+  def destroy
+    comment.destroy
     respond_with comment
   end
 

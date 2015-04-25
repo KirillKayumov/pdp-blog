@@ -1,0 +1,9 @@
+<% if comment.destroyed? %>
+  var comment_id = "<%= comment.id %>";
+  $('#comment-' + comment_id).hide('highlight', 500);
+
+  var commentsNumber = parseInt($('#comments-number').text());
+  $('#comments-number').text(commentsNumber - 1);
+<% else %>
+  $('#comment-' + comment_id).effect('highlight', 500);
+<% end %>

@@ -18,7 +18,7 @@
         = link_to t('app.actions.destroy'), article_path(decorated_article), method: :delete, data: { confirm: t('app.messages.sure') }
 
 .small-12.medium-8.small-centered.columns
-  = render 'comments/comments', comments: decorated_comments
+  = render 'comments/comments', comments: decorated_comments, article: decorated_article
 
   - if policy(article.comments.build).new?
     = simple_form_for [article, article.comments.build], remote: true, html: { class: 'comment-form' } do |f|

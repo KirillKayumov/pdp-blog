@@ -12,7 +12,7 @@ module ArticleHelpers
   end
 
   def go_to_article(decorated_article)
-    visti root_path
+    visit root_path
     click_link decorated_article.title
   end
 end

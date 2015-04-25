@@ -3,12 +3,15 @@ require 'rails_helper'
 feature 'Show article' do
   let!(:article) { create :article }
   let!(:comment) { create :comment, article: article }
-  let(:user) { create :user }
 
   before { go_to_article(article.decorate) }
 
   scenario 'I see an article' do
     expect_to_see_article(article.decorate)
+    within '.article footer' do
+      expect(page).not_to have_link('Edit')
+      expect(page).not_to have_link('Delete')
+    end
   end
 
   scenario 'I see comments' do
@@ -18,9 +21,20 @@ feature 'Show article' do
   end
 
   context 'signed in user' do
+    let!(:user) { create :user }
+    let!(:article) { create :article, user: user }
+
     before do
       sign_in user.email, user.password
       go_to_article(article.decorate)
+    end
+
+    scenario 'I see control links on my article page' do
+      expect_to_see_article(article.decorate)
+      within '.article footer' do
+        expect(page).to have_link('Edit')
+        expect(page).to have_link('Delete')
+      end
     end
 
     scenario 'I see comment form' do

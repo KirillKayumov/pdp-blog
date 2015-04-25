@@ -9,6 +9,8 @@ class CommentPolicy
   end
 
   def create?
+    return false unless @user.present?
+
     @comment.user_id == @user.id
   end
   alias_method :destroy?, :create?

@@ -37,5 +37,13 @@ describe CommentPolicy do
         expect(subject).not_to permit(user, comment)
       end
     end
+
+    context 'not signed in user' do
+      let(:comment) { create :comment }
+
+      it 'denies access' do
+        expect(subject).not_to permit(nil, comment)
+      end
+    end
   end
 end
