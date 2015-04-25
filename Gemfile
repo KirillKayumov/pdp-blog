@@ -35,6 +35,7 @@ gem 'thin'
 gem 'draper'
 gem 'faker'
 gem 'pundit'
+gem 'will_paginate'
 
 group :staging, :production do
   gem 'rails_12factor'
