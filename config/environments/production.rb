@@ -76,5 +76,5 @@ Rails.application.configure do
 
   # Application specific options
   #
-  config.host = 'fs-rails-base.herokuapp.com'
+  config.host = 'pdp-blog.herokuapp.com'
 end
