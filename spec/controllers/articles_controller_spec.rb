@@ -1,92 +1,129 @@
 require 'rails_helper'
 
 describe ArticlesController, type: :controller do
-  describe '#index' do
-    let!(:article1) { create :article, created_at: Time.zone.yesterday }
-    let!(:article2) { create :article, created_at: Time.zone.now }
-
-    before(:each) { get :index }
-
-    it 'responds with 200' do
-      expect(response.status).to eq(200)
-    end
-
-    it 'exposes all articles' do
-      expect(controller.decorated_articles).to eq([article2, article1])
-    end
-  end
-
-  describe '#show' do
-    let!(:article) { create :article }
-
-    before(:each) { get :show, id: article.id }
-
-    it 'responds with 200' do
-      expect(response.status).to eq(200)
-    end
-
-    it 'exposes the article' do
-      expect(controller.article).to eq(article)
-      expect(controller.decorated_article).to eq(article)
-    end
-  end
-
-  describe '#new' do
-    context 'user is not signed in' do
-      before(:each) { get :new }
-
-      it 'redirects to sign in page' do
-        expect(response).to redirect_to(new_user_session_path)
-      end
-    end
-
-    context 'user is signed in' do
-      let(:user) { create :user }
-
-      before(:each) do
-        sign_in user
-        get :new
-      end
-
+  context 'not signed in user' do
+    describe '#index' do
       it 'responds with 200' do
+        get :index
+
         expect(response.status).to eq(200)
       end
     end
-  end
 
-  describe '#create' do
-    let(:user) { create :user }
-    let(:article) { build :article }
-    let(:params) do
-      {
-        article: {
-          title: article.title,
-          text: article.text,
-          user_id: user.id
-        }
-      }
+    describe '#show' do
+      let!(:article) { create :article }
+
+      it 'responds with 200' do
+        get :show, id: article.id
+
+        expect(response.status).to eq(200)
+      end
     end
 
-    context 'user is not signed in' do
-      before(:each) { post :create, params }
-
+    describe '#new' do
       it 'redirects to sign in page' do
+        get :new
         expect(response).to redirect_to(new_user_session_path)
       end
     end
 
-    context 'user is signed in' do
-      before(:each) { sign_in user }
+    describe '#create' do
+      it 'redirects to sign in page' do
+        post :create, {}
+
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    describe '#edit' do
+      let!(:article) { create :article }
+
+      it 'redirects to sign in page' do
+        get :edit, id: article.id
+
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    describe '#update' do
+      let!(:article) { create :article }
+
+      it 'redirects to sign in page' do
+        put :update, id: article.id
+
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    describe '#destroy' do
+      let!(:article) { create :article }
+
+      it 'redirects to sign in page' do
+        delete :destroy, id: article.id
+
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+  end
+
+  context 'signed in user' do
+    let!(:user) { create :user }
+
+    before(:each) { sign_in user }
+
+    describe '#index' do
+      it 'responds with 200' do
+        get :index
+
+        expect(response.status).to eq(200)
+      end
+    end
+
+    describe '#show' do
+      let!(:article) { create :article }
+
+      it 'responds with 200' do
+        get :show, id: article.id
+
+        expect(response.status).to eq(200)
+      end
+    end
+
+    describe '#new' do
+      it 'responds with 200' do
+        get :new
+
+        expect(response.status).to eq(200)
+      end
+    end
+
+    describe '#create' do
+      let(:article) { build :article }
 
       context 'valid params' do
+        let(:params) do
+          {
+            article: {
+              title: article.title,
+              text: article.text,
+              user_id: user.id
+            }
+          }
+        end
+
         it 'saves the article' do
           expect { post :create, params }.to change { Article.count }.by(1)
+        end
+
+        it 'redirects to article page' do
+          post :create, params
+
           expect(response).to redirect_to(root_path)
         end
       end
 
       context 'invalid article params' do
-        let(:invalid_params) do
+        let(:params) do
           {
             article: {
               title: '',
@@ -97,7 +134,12 @@ describe ArticlesController, type: :controller do
         end
 
         it 'do not save the article' do
-          expect { post :create, invalid_params }.not_to change { Article.count }
+          expect { post :create, params }.not_to change { Article.count }
+        end
+
+        it 'renders #new' do
+          post :create, params
+
           expect(response).to render_template(:new)
         end
       end
@@ -118,26 +160,9 @@ describe ArticlesController, type: :controller do
         end
       end
     end
-  end
 
-  describe '#edit' do
-    context 'user is not signed in' do
-      let(:article) { create :article }
-
-      before(:each) { get :edit, id: article.id }
-
-      it 'redirects to sign in page' do
-        expect(response).to redirect_to(new_user_session_path)
-      end
-    end
-
-    context 'user is signed in' do
-      let(:user) { create :user }
-
-      before(:each) do
-        sign_in user
-        get :edit, id: article.id
-      end
+    describe '#edit' do
+      before { get :edit, id: article.id }
 
       context 'user edits his article' do
         let(:article) { create :article, user: user }
@@ -155,37 +180,22 @@ describe ArticlesController, type: :controller do
         end
       end
     end
-  end
 
-  describe '#update' do
-    context 'user is not signed in' do
-      let(:article) { create :article }
-
-      before(:each) { put :update, id: article.id }
-
-      it 'redirects to sign in page' do
-        expect(response).to redirect_to(new_user_session_path)
-      end
-    end
-
-    context 'user is signed in' do
-      let(:user) { create :user }
-      let(:params) do
-        {
-          id: article.id,
-          article: {
-            title: 'New title'
-          }
-        }
-      end
-
-      before(:each) { sign_in user }
-
+    describe '#update' do
       context 'user edits his article' do
         let(:article) { create :article, user: user }
 
+        before(:each) { put :update, params }
+
         context 'with valid parameters' do
-          before(:each) { put :update, params }
+          let(:params) do
+            {
+              id: article.id,
+              article: {
+                title: 'New title'
+              }
+            }
+          end
 
           it 'updates the article' do
             expect(article.reload.title).to eq('New title')
@@ -197,7 +207,7 @@ describe ArticlesController, type: :controller do
         end
 
         context 'with invalid parameters' do
-          let(:invalid_params) do
+          let(:params) do
             {
               id: article.id,
               article: {
@@ -205,8 +215,6 @@ describe ArticlesController, type: :controller do
               }
             }
           end
-
-          before(:each) { put :update, invalid_params }
 
           it 'does not update the article' do
             expect(article.reload.title).not_to eq('New title')
@@ -226,24 +234,8 @@ describe ArticlesController, type: :controller do
         end
       end
     end
-  end
 
-  describe '#destroy' do
-    context 'user is not signed in' do
-      let(:article) { create :article }
-
-      before(:each) { delete :update, id: article.id }
-
-      it 'redirects to sign in page' do
-        expect(response).to redirect_to(new_user_session_path)
-      end
-    end
-
-    context 'user is signed in' do
-      let(:user) { create :user }
-
-      before(:each) { sign_in user }
-
+    describe '#destroy' do
       context 'user deletes his article' do
         let!(:article) { create :article, user: user }
 

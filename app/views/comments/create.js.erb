@@ -1,0 +1,10 @@
+<% if comment.valid? %>
+  $('.comments-block').append("<%= j render 'comments/comment', comment: decorated_comment %>");
+  $('.comment').last().effect('highlight', 1000);
+  $('.comment-form .text').val('');
+
+  var commentsNumber = parseInt($('#comments-number').text());
+  $('#comments-number').text(commentsNumber + 1);
+<% else %>
+  $('.comment-form .text').effect('highlight', 1000);
+<% end %>

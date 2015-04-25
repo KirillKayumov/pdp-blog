@@ -14,6 +14,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'foundation-rails'
 gem 'foundation-icons-sass-rails'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'autoprefixer-rails'
 gem 'therubyracer', platforms: :ruby
 gem 'uglifier', '>= 1.3.0'

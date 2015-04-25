@@ -4,7 +4,7 @@
       h1.title
         = link_to article.title, article
       .text
-        - article.truncated_text_by_paragraphs.each do |paragraph|
+        - article.text_by_paragraphs.each do |paragraph|
           p
             = paragraph
       footer

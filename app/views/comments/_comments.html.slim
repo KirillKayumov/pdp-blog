@@ -1,0 +1,9 @@
+section.comments-block
+  header.block-header
+    = t('app.comments.title')
+    '
+    span#comments-number
+      = comments.size
+
+  - comments.each do |comment|
+    = render 'comments/comment', comment: comment

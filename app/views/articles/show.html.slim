@@ -1,4 +1,4 @@
-.small-12.medium-8.small-centered.columns.article-wrap
+.small-12.medium-8.small-centered.columns
   article.article
     h1.title
       = decorated_article.title
@@ -16,3 +16,12 @@
       - if policy(article).destroy?
         '  |
         = link_to t('app.actions.destroy'), article_path(decorated_article), method: :delete, data: { confirm: t('app.messages.sure') }
+
+.small-12.medium-8.small-centered.columns
+  = render 'comments/comments', comments: decorated_comments
+
+  - if policy(article.comments.build).new?
+    = simple_form_for [article, article.comments.build], remote: true, html: { class: 'comment-form' } do |f|
+      = f.input :text, label: false, placeholder: true, input_html: { rows: 4 }
+      = f.input :user_id, as: :hidden, input_html: { value: current_user.id }
+      = f.button :submit, class: 'tiny'
