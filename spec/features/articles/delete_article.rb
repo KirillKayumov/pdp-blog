@@ -5,7 +5,7 @@ feature 'Delete article' do
 
   before(:each) do
     sign_in user.email, user.password
-    visit article_path(article)
+    go_to_article(article.decorate)
   end
 
   context 'Article of signed in user' do

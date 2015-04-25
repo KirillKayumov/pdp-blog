@@ -5,7 +5,7 @@ feature 'Edit article' do
 
   before(:each) do
     sign_in user.email, user.password
-    visit article_path(article)
+    go_to_article(article.decorate)
   end
 
   context 'Article of signed in user' do
@@ -27,7 +27,7 @@ feature 'Edit article' do
     let(:article) { create :article }
 
     scenario 'User does not see edit link' do
-      expect(page).not_to have_css('a', text: 'Edit')
+      expect(page).not_to link('Edit')
     end
   end
 end
