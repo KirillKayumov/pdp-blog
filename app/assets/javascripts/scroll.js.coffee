@@ -10,3 +10,9 @@ $ ->
       scrollTop: 0,
       500
     )
+
+  $(window).scroll ->
+    url = $('.pagination.main .next_page').attr('href')
+    if url && $(window).scrollTop() > $(document).height() - $(window).height() - 50
+      $('.pagination.main').text('Fetching more products...')
+      $.getScript(url)

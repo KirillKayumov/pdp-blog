@@ -2,6 +2,8 @@ class ArticlesController < ApplicationController
   before_action :authenticate_user!, only: %i(new create edit update destroy)
   before_action :require_permission, only: %i(create edit update destroy)
 
+  respond_to :js, only: :index
+
   expose(:all_articles) do
     Article
       .ordered
