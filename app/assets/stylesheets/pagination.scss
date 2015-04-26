@@ -9,7 +9,7 @@
   }
 
   .disabled {
-    color: #aaaaaa;
+    color: #999;
   }
 
   .current {
@@ -20,6 +20,7 @@
     height: 1.4em;
     line-height: 1.5;
     text-shadow: rgba(white, .8) 1px 1px 1px;
+    color: $primary-color;
   }
 
   a {
