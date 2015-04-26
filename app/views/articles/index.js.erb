@@ -1,0 +1,6 @@
+$('#articles-list').append('<%= j render decorated_articles %>');
+<% if all_articles.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate all_articles, class: 'pagination main' %>');
+<% else %>
+  $('.pagination').remove();
+<% end %>

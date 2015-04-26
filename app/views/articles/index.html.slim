@@ -1,6 +1,4 @@
-.small-12.columns
-  - decorated_articles.each do |article|
-    = render 'article', article: article
+.small-12.columns#articles-list
+  = render decorated_articles
 
-  .row
-    = will_paginate all_articles
+= will_paginate all_articles, class: 'pagination main'
