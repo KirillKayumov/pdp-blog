@@ -18,6 +18,7 @@ gem 'jquery-ui-rails'
 gem 'autoprefixer-rails'
 gem 'therubyracer', platforms: :ruby
 gem 'uglifier', '>= 1.3.0'
+gem 'font-awesome-rails'
 
 gem 'simple_form', '~> 3.0.2'
 gem 'active_link_to'

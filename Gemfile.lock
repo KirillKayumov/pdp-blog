@@ -116,6 +116,8 @@ GEM
     faker (1.4.3)
       i18n (~> 0.5)
     fastercsv (1.5.5)
+    font-awesome-rails (4.3.0.0)
+      railties (>= 3.2, < 5.0)
     foreman (0.63.0)
       dotenv (>= 0.7)
       thor (>= 0.13.6)
@@ -339,6 +341,7 @@ DEPENDENCIES
   email_spec
   factory_girl_rails
   faker
+  font-awesome-rails
   foreman
   formulaic
   foundation-icons-sass-rails
