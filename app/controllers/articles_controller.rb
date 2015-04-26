@@ -14,12 +14,11 @@ class ArticlesController < ApplicationController
   expose(:article, attributes: :article_params)
   expose(:decorated_article) { article.decorate }
   expose(:comments) do
-    article
-      .comments
-      .ordered
-      .includes(:user)
+    CommentQuery.new(article)
+      .search
       .paginate(page: params[:page], per_page: 5)
   end
+
   expose(:decorated_comments) { comments.decorate }
 
   def index
