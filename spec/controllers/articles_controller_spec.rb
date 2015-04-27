@@ -87,6 +87,16 @@ describe ArticlesController, type: :controller do
 
         expect(response.status).to eq(200)
       end
+
+      context 'pagination for comments presents' do
+        let!(:comments) { create_list :comment, 6, article: article }
+
+        it 'exposes part of comments' do
+          get :show, id: article.id, page: 2
+
+          expect(controller.comments).to eq([comments.last])
+        end
+      end
     end
 
     describe '#new' do
