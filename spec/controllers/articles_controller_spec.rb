@@ -77,6 +77,16 @@ describe ArticlesController, type: :controller do
 
         expect(response.status).to eq(200)
       end
+
+      context 'pagination for articles presents' do
+        let!(:articles) { create_list :article, 6 }
+
+        it 'exposes part of articles' do
+          get :index, page: 2
+
+          expect(controller.all_articles).to eq([articles.first])
+        end
+      end
     end
 
     describe '#show' do
