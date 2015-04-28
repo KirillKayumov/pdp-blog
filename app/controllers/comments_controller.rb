@@ -24,10 +24,7 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(
-      :text,
-      :user_id
-    )
+    params.require(:comment).permit(:text).merge(user: current_user)
   end
 
   def authorize_user!
