@@ -37,6 +37,7 @@ gem 'draper'
 gem 'faker'
 gem 'pundit'
 gem 'will_paginate'
+gem 'responders'
 
 group :staging, :production do
   gem 'rails_12factor'

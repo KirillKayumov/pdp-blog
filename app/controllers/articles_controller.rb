@@ -2,6 +2,7 @@ class ArticlesController < ApplicationController
   before_action :authenticate_user!, only: %i(new create edit update destroy)
   before_action :require_permission, only: %i(create edit update destroy)
 
+  respond_to :html
   respond_to :js, only: :index
 
   expose(:all_articles) do
@@ -31,27 +32,21 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    if article.save
-      redirect_to root_path, notice: t('app.messages.article.created')
-    else
-      render :new
-    end
+    article.save
+    respond_with article, location: root_path
   end
 
   def edit
   end
 
   def update
-    if article.save
-      redirect_to article, notice: t('app.messages.article.updated')
-    else
-      render :edit
-    end
+    article.save
+    respond_with article
   end
 
   def destroy
-    article.destroy!
-    redirect_to root_path, notice: t('app.messages.article.destroyed')
+    article.destroy
+    respond_with article, location: root_path
   end
 
   private
