@@ -5,4 +5,5 @@ class Comment < ActiveRecord::Base
   validates :text, :article, :user, presence: true
 
   scope :ordered, -> { order(created_at: :asc) }
+  scope :with_users, -> { includes(:user) }
 end

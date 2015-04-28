@@ -6,8 +6,9 @@ class ArticlesController < ApplicationController
   respond_to :js, only: :index
 
   expose(:all_articles) do
-    ArticleQuery.new
-      .search
+    Article
+      .ordered
+      .with_users
       .paginate(page: params[:page], per_page: 5)
   end
   expose(:decorated_articles) { all_articles.decorate }
@@ -16,8 +17,9 @@ class ArticlesController < ApplicationController
   expose(:decorated_article) { article.decorate }
 
   expose(:comments) do
-    CommentQuery.new(article)
-      .search
+    article.comments
+      .ordered
+      .with_users
       .paginate(page: params[:page], per_page: 5)
   end
   expose(:decorated_comments) { comments.decorate }
