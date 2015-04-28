@@ -4,7 +4,8 @@ article.comment id="comment-#{comment.object.id}"
       = comment.user_full_name
     .comment-date
       = comment.created_at
-      - if policy(comment.object).destroy?
+
+      - if policy(comment.object).manage?
         '  |
         = link_to t('app.actions.destroy'), [article, comment], method: :delete, remote: true, data: { confirm: t('app.messages.sure') }
 

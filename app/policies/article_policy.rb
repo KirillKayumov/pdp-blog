@@ -4,12 +4,7 @@ class ArticlePolicy
     @article = article
   end
 
-  def edit?
-    return false unless @user.present?
-
-    @article.user_id == @user.id
+  def manage?
+    @user.present? && @article.user == @user
   end
-  alias_method :create?, :edit?
-  alias_method :update?, :edit?
-  alias_method :destroy?, :edit?
 end

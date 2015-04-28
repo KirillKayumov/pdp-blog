@@ -5,7 +5,7 @@ describe ArticlePolicy do
 
   let(:user) { create :user }
 
-  permissions :edit? do
+  permissions :manage? do
     context 'user edits his article' do
       let(:article) { create :article, user: user }
 

@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     strategy DecentExposure::StrongParametersStrategy
   end
 
-  def require_permission
-    redirect_to root_path, alert: t('app.messages.access_denied') unless access_allowed?
+  def redirect_to_root
+    redirect_to root_path, alert: t('app.messages.access_denied')
   end
 end

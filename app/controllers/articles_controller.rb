@@ -1,6 +1,8 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, only: %i(new create edit update destroy)
-  before_action :require_permission, only: %i(create edit update destroy)
+  before_action :authorize_user!, only: %i(create edit update destroy)
+
+  rescue_from Pundit::NotAuthorizedError, with: :redirect_to_root
 
   respond_to :html
   respond_to :js, only: :index
@@ -61,7 +63,7 @@ class ArticlesController < ApplicationController
     )
   end
 
-  def access_allowed?
-    ArticlePolicy.new(current_user, article).send("#{action_name}?")
+  def authorize_user!
+    authorize(article, :manage?)
   end
 end

@@ -10,10 +10,10 @@
       = decorated_article.created_at
       '  by
       = decorated_article.user_full_name
-      - if policy(article).edit?
+
+      - if policy(article).manage?
         '  |
         = link_to t('app.actions.edit'), edit_article_path(decorated_article)
-      - if policy(article).destroy?
         '  |
         = link_to t('app.actions.destroy'), article_path(decorated_article), method: :delete, data: { confirm: t('app.messages.sure') }
 

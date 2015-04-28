@@ -1,8 +1,10 @@
 class CommentsController < ApplicationController
-  respond_to :js
-
   before_action :authenticate_user!, only: %i(create destroy)
-  before_action :require_permission, only: %i(create destroy)
+  before_action :authorize_user!, only: %i(create destroy)
+
+  rescue_from Pundit::NotAuthorizedError, with: :redirect_to_root
+
+  respond_to :js
 
   expose(:article)
   expose(:comments, ancestor: :article)
@@ -28,7 +30,7 @@ class CommentsController < ApplicationController
     )
   end
 
-  def access_allowed?
-    CommentPolicy.new(current_user, comment).send("#{action_name}?")
+  def authorize_user!
+    authorize(comment, :manage?)
   end
 end
