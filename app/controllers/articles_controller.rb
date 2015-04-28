@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
   before_action :authenticate_user!, only: %i(new create edit update destroy)
   before_action :authorize_user!, only: %i(create edit update destroy)
 
-  rescue_from Pundit::NotAuthorizedError, with: :redirect_to_root
+  rescue_from Pundit::NotAuthorizedError, with: :redirect_with_alert
 
   respond_to :html
   respond_to :js, only: :index
@@ -18,13 +18,14 @@ class ArticlesController < ApplicationController
   expose(:article, attributes: :article_params)
   expose(:decorated_article) { article.decorate }
 
-  expose(:comments) do
-    article.comments
+  expose(:comments, ancestor: :article) do |default|
+    default
       .ordered
       .with_users
       .paginate(page: params[:page], per_page: 5)
   end
   expose(:decorated_comments) { comments.decorate }
+  expose(:comment) { Comment.new }
 
   def index
   end
