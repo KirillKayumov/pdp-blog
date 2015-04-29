@@ -8,7 +8,7 @@ feature 'Pagination', js: true do
   before { visit root_path }
 
   scenario 'I see first part of articles' do
-    (10...5).each do |index|
+    (6..10).each do |index|
       expect(page).to have_content("Article ##{index}")
     end
     expect(page).not_to have_content('Article #5')
@@ -18,7 +18,7 @@ feature 'Pagination', js: true do
     page.execute_script 'window.scrollBy(0,10000)'
     wait_for_ajax
 
-    (5..1).each do |index|
+    (1..5).each do |index|
       expect(page).to have_content("Article ##{index}")
     end
   end

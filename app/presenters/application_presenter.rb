@@ -1,6 +1,4 @@
 class ApplicationPresenter
-  include Rails.application.routes.url_helpers
-  include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::DateHelper
 
   def self.wrap(object_or_collection)
