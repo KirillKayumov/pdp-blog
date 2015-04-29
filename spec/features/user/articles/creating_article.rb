@@ -5,7 +5,7 @@ feature 'Creating article' do
 
   before do
     sign_in user.email, user.password
-    new_article
+    click_link 'Write an article'
   end
 
   scenario 'User saves an articles' do

@@ -129,7 +129,6 @@ GEM
     fuubar (2.0.0.rc1)
       rspec (~> 3.0.rc1)
       ruby-progressbar (~> 1.4)
-    github-markdown (0.6.4)
     haml (4.0.5)
       tilt
     highline (1.6.21)
@@ -342,7 +341,6 @@ DEPENDENCIES
   foundation-icons-sass-rails
   foundation-rails
   fuubar (~> 2.0.0.rc1)
-  github-markdown
   interactor
   jquery-rails
   jquery-ui-rails

@@ -1,10 +1,10 @@
 <% if comment.valid? %>
-  $('.comments-block').append("<%= j render comment_presenter %>");
+  $('.comments-block').append("<%= j(render(comment_presenter)) %>");
   $('.comment').last().effect('highlight', 500);
-  $('.comment-form').replaceWith("<%= j render 'comments/form', article: article, comment: Comment.new %>")
+  $('.comment-form').replaceWith("<%= j(render('comments/form', article: article, comment: Comment.new)) %>")
 
   var commentsNumber = parseInt($('#comments-number').text());
   $('#comments-number').text(commentsNumber + 1);
 <% else %>
-  $('.comment-form').replaceWith("<%= j render 'comments/form', article: article, comment: comment %>")
+  $('.comment-form').replaceWith("<%= j(render('comments/form', article: article, comment: comment)) %>")
 <% end %>
