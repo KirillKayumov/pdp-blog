@@ -11,7 +11,8 @@
 
       ul.right
         - if user_signed_in?
-          = active_link_to t('app.navigation.sign_out'), destroy_user_session_path, wrap_tag: :li
+          = active_link_to t('app.navigation.user.edit_profile'), edit_user_registration_path, wrap_tag: :li
+          = active_link_to t('app.navigation.user.sign_out'), destroy_user_session_path, wrap_tag: :li
         - else
-          = active_link_to t('app.navigation.sign_up'), new_user_registration_path, active: [['devise/registrations'], ['new', 'create']], wrap_tag: :li
-          = active_link_to t('app.navigation.sign_in'), new_user_session_path, active: [['devise/sessions'], ['new', 'create']], wrap_tag: :li
+          = active_link_to t('app.navigation.user.sign_up'), new_user_registration_path, active: [['devise/registrations'], ['new', 'create']], wrap_tag: :li
+          = active_link_to t('app.navigation.user.sign_in'), new_user_session_path, active: [['devise/sessions'], ['new', 'create']], wrap_tag: :li

@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-feature 'Delete comment', js: true do
+feature 'Deleting comment', js: true do
   let!(:user) { create :user }
   let!(:article) { create :article }
   let!(:comment) { create :comment, user: user, article: article }
 
-  before(:each) do
+  before do
     sign_in user.email, user.password
-    go_to_article(article.decorate)
+    visit article_path(article)
   end
 
   scenario 'I delete comment' do

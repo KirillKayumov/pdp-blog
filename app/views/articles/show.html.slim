@@ -1,21 +1,20 @@
 .small-12.medium-8.small-centered.columns
   article.article
     h1.title
-      = decorated_article.title
+      = article_presenter.title
     .text
-      - decorated_article.text_by_paragraphs.each do |paragraph|
+      - article_presenter.text_by_paragraphs.each do |paragraph|
         p
           = paragraph
     footer
-      = decorated_article.created_at
+      = article_presenter.created_at
       '  by
-      = decorated_article.user_full_name
+      = article_presenter.author
 
-      - if policy(article).manage?
-        '  |
-        = link_to t('app.actions.edit'), edit_article_path(decorated_article)
-        '  |
-        = link_to t('app.actions.destroy'), article_path(decorated_article), method: :delete, data: { confirm: t('app.messages.sure') }
+      '
+      = article_presenter.link_to_edit(current_user)
+      '
+      = article_presenter.link_to_destroy(current_user)
 
 .small-12.medium-8.small-centered.columns
   section.comments-block
@@ -25,8 +24,9 @@
       span#comments-number
         = comments.total_entries
 
-    = render decorated_comments, article: article
+    = render comments_presenter, article: article
 
-  = render 'comments/form', comment: comment, article: article
+  - if policy(comment).new?
+    = render 'comments/form', comment: comment, article: article
 
 = will_paginate comments

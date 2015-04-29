@@ -1,4 +1,3 @@
-- if policy(comment).new?
-  = simple_form_for [article, comment], remote: true, method: :post, html: { class: 'comment-form' } do |f|
-    = f.input :text, label: false, placeholder: true, input_html: { rows: 4 }
-    = f.button :submit, class: 'tiny'
+= simple_form_for [article, comment], remote: true, html: { class: 'comment-form' } do |f|
+  = f.input :text, label: false, placeholder: true, input_html: { rows: 4 }
+  = f.button :submit, class: 'tiny'

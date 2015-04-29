@@ -2,14 +2,14 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!, only: %i(create destroy)
   before_action :authorize_user!, only: %i(create destroy)
 
-  rescue_from Pundit::NotAuthorizedError, with: :redirect_to_root
+  rescue_from Pundit::NotAuthorizedError, with: :redirect_with_alert
 
   respond_to :js
 
   expose(:article)
   expose(:comments, ancestor: :article)
   expose(:comment, attributes: :comment_params)
-  expose(:decorated_comment) { comment.decorate }
+  expose(:comment_presenter) { CommentPresenter.wrap(comment) }
 
   def create
     comment.save

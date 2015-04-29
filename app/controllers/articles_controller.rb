@@ -8,23 +8,18 @@ class ArticlesController < ApplicationController
   respond_to :js, only: :index
 
   expose(:all_articles) do
-    Article
-      .ordered
-      .with_users
-      .paginate(page: params[:page], per_page: 5)
+    Article.ordered.with_users.paginate(page: params[:page], per_page: 5)
   end
-  expose(:decorated_articles) { all_articles.decorate }
+  expose(:articles_presenter) { ArticlePresenter.wrap(all_articles) }
 
   expose(:article, attributes: :article_params)
-  expose(:decorated_article) { article.decorate }
+  expose(:article_presenter) { ArticlePresenter.wrap(article) }
 
   expose(:comments, ancestor: :article) do |default|
-    default
-      .ordered
-      .with_users
-      .paginate(page: params[:page], per_page: 5)
+    default.ordered.with_users.paginate(page: params[:page], per_page: 5)
   end
-  expose(:decorated_comments) { comments.decorate }
+  expose(:comments_presenter) { CommentPresenter.wrap(comments) }
+
   expose(:comment) { Comment.new }
 
   def index

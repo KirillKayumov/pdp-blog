@@ -1,7 +1,7 @@
 module CommentHelpers
-  def expect_to_see_comment(decorated_comment)
-    expect(page).to have_content(decorated_comment.text)
-    expect(page).to have_content(decorated_comment.user_full_name)
-    expect(page).to have_content(decorated_comment.created_at)
+  def expect_to_see_comment(comment_presenter)
+    expect(page).to have_content(comment_presenter.text)
+    expect(page).to have_content(comment_presenter.author)
+    expect(page).to have_content(comment_presenter.created_at)
   end
 end

@@ -4,15 +4,10 @@ module ArticleHelpers
     click_link 'Write an article'
   end
 
-  def expect_to_see_article(decorated_article)
-    expect(page).to have_content(decorated_article.title)
-    expect(page).to have_content(decorated_article.text)
-    expect(page).to have_content(decorated_article.created_at)
-    expect(page).to have_content(decorated_article.user_full_name)
-  end
-
-  def go_to_article(decorated_article)
-    visit root_path
-    click_link decorated_article.title
+  def expect_to_see_article(article_presenter)
+    expect(page).to have_content(article_presenter.title)
+    expect(page).to have_content(article_presenter.text)
+    expect(page).to have_content(article_presenter.created_at)
+    expect(page).to have_content(article_presenter.author)
   end
 end
