@@ -1,25 +1,26 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, only: %i(new create edit update destroy)
-  before_action :require_permission, only: %i(create edit update destroy)
+  before_action :authorize_user!, only: %i(create edit update destroy)
 
+  rescue_from Pundit::NotAuthorizedError, with: :redirect_with_alert
+
+  respond_to :html
   respond_to :js, only: :index
 
   expose(:all_articles) do
-    ArticleQuery.new
-      .search
-      .paginate(page: params[:page], per_page: 5)
+    Article.ordered.with_users.paginate(page: params[:page], per_page: 5)
   end
-  expose(:decorated_articles) { all_articles.decorate }
+  expose(:articles_presenter) { ArticlePresenter.wrap(all_articles) }
 
   expose(:article, attributes: :article_params)
-  expose(:decorated_article) { article.decorate }
+  expose(:article_presenter) { ArticlePresenter.wrap(article) }
 
-  expose(:comments) do
-    CommentQuery.new(article)
-      .search
-      .paginate(page: params[:page], per_page: 5)
+  expose(:comments, ancestor: :article) do |default|
+    default.ordered.with_users.paginate(page: params[:page], per_page: 5)
   end
-  expose(:decorated_comments) { comments.decorate }
+  expose(:comments_presenter) { CommentPresenter.wrap(comments) }
+
+  expose(:comment) { Comment.new }
 
   def index
   end
@@ -31,40 +32,30 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    if article.save
-      redirect_to root_path, notice: t('app.messages.article.created')
-    else
-      render :new
-    end
+    article.save
+    respond_with article, location: root_path
   end
 
   def edit
   end
 
   def update
-    if article.save
-      redirect_to article, notice: t('app.messages.article.updated')
-    else
-      render :edit
-    end
+    article.save
+    respond_with article
   end
 
   def destroy
-    article.destroy!
-    redirect_to root_path, notice: t('app.messages.article.destroyed')
+    article.destroy
+    respond_with article, location: root_path
   end
 
   private
 
   def article_params
-    params.require(:article).permit(
-      :title,
-      :text,
-      :user_id
-    )
+    params.require(:article).permit(:title, :text).merge(user: current_user)
   end
 
-  def access_allowed?
-    ArticlePolicy.new(current_user, article).send("#{action_name}?")
+  def authorize_user!
+    authorize(article, :manage?)
   end
 end

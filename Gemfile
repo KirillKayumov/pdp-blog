@@ -23,7 +23,6 @@ gem 'font-awesome-rails'
 gem 'simple_form', '~> 3.0.2'
 gem 'active_link_to'
 gem 'title'
-gem 'github-markdown' # only for dashboard controller
 
 # all other gems
 gem 'devise'
@@ -33,10 +32,10 @@ gem 'kaminari'
 gem 'rollbar', '~> 0.10.3'
 gem 'seedbank'
 gem 'thin'
-gem 'draper'
 gem 'faker'
 gem 'pundit'
 gem 'will_paginate'
+gem 'responders'
 
 group :staging, :production do
   gem 'rails_12factor'

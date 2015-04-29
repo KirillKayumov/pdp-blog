@@ -21,7 +21,7 @@ describe CommentPolicy do
     end
   end
 
-  permissions :create? do
+  permissions :manage? do
     context 'user creates his comment' do
       let(:comment) { create :comment, user: user }
 

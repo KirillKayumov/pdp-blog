@@ -2,7 +2,7 @@
   .small-12.medium-8.small-centered.columns
     article.article
       h1.title
-        = link_to article.title, article
+        = link_to article.title, article.object
       .text
         - article.text_by_paragraphs.each do |paragraph|
           p
@@ -10,5 +10,5 @@
       footer
         = article.created_at
         '  by
-        = article.user.full_name
+        = article.author
     hr

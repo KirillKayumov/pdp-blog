@@ -3,8 +3,6 @@ en:
 
   titles:
     application: PDP Blog
-    dashboard:
-      index: Dashboard
     devise:
       registrations:
         new: Sign up
@@ -65,24 +63,16 @@ en:
       update: "Update"
       sure: "Are you sure?"
 
-    home: 'Dashboard'
-
     navigation:
-      main:
-        dashboard: 'Dashboard'
-      sign_in: 'Sign in'
-      sign_out: 'Sign out'
-      sign_up: 'Sign up'
-      edit_profile: 'Edit profile'
+      user:
+        sign_in: 'Sign in'
+        sign_out: 'Sign out'
+        sign_up: 'Sign up'
+        edit_profile: 'Edit profile'
       new_article: 'Write an article'
 
     messages:
-      article:
-        created: 'Article succesfully created.'
-        updated: 'Article succesfully updated.'
-        destroyed: 'Article succesfully deleted.'
       access_denied: 'You do not have access rights.'
-      fail: 'Something went wrong.'
       sure: 'Are you sure?'
 
     actions:

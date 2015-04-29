@@ -1,5 +1,9 @@
+require 'application_responder'
+
 class ApplicationController < ActionController::Base
   include Pundit
+
+  self.responder = ApplicationResponder
 
   protect_from_forgery
 
@@ -17,7 +21,7 @@ class ApplicationController < ActionController::Base
     strategy DecentExposure::StrongParametersStrategy
   end
 
-  def require_permission
-    redirect_to root_path, alert: t('app.messages.access_denied') unless access_allowed?
+  def redirect_with_alert
+    redirect_to root_path, alert: t('app.messages.access_denied')
   end
 end

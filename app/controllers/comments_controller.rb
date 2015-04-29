@@ -1,13 +1,15 @@
 class CommentsController < ApplicationController
-  respond_to :js
-
   before_action :authenticate_user!, only: %i(create destroy)
-  before_action :require_permission, only: %i(create destroy)
+  before_action :authorize_user!, only: %i(create destroy)
+
+  rescue_from Pundit::NotAuthorizedError, with: :redirect_with_alert
+
+  respond_to :js
 
   expose(:article)
   expose(:comments, ancestor: :article)
   expose(:comment, attributes: :comment_params)
-  expose(:decorated_comment) { comment.decorate }
+  expose(:comment_presenter) { CommentPresenter.wrap(comment) }
 
   def create
     comment.save
@@ -22,13 +24,10 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(
-      :text,
-      :user_id
-    )
+    params.require(:comment).permit(:text).merge(user: current_user)
   end
 
-  def access_allowed?
-    CommentPolicy.new(current_user, comment).send("#{action_name}?")
+  def authorize_user!
+    authorize(comment, :manage?)
   end
 end
