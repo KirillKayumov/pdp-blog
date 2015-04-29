@@ -16,7 +16,7 @@ feature 'Creating article' do
     )
 
     expect(current_path).to eq(root_path)
-    expect(page).to have_content('Article succesfully created.')
+    expect(page).to have_content('Article was successfully created.')
     expect_to_see_article(ArticlePresenter.wrap(Article.last))
   end
 

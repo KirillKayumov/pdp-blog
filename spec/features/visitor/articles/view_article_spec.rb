@@ -9,7 +9,7 @@ feature 'View article' do
   before { visit article_path(article) }
 
   scenario 'I see the article' do
-    expect_to_see_article(article.article_presenter)
+    expect_to_see_article(article_presenter)
 
     within '.article footer' do
       expect(page).not_to have_link('Edit')

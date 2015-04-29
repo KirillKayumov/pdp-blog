@@ -11,10 +11,11 @@
       '  by
       = article_presenter.author
 
-      '
-      = article_presenter.link_to_edit(current_user)
-      '
-      = article_presenter.link_to_destroy(current_user)
+      - if article_presenter.managed_by?(current_user)
+        '  |
+        = link_to t('app.actions.edit'), edit_article_path(article)
+        '  |
+        = link_to t('app.actions.destroy'), article, method: :delete, data: { confirm: I18n.t('app.messages.sure') }
 
 .small-12.medium-8.small-centered.columns
   section.comments-block
@@ -26,7 +27,7 @@
 
     = render comments_presenter, article: article
 
-  - if policy(comment).new?
+  - if comment_presenter.created_by?(current_user)
     = render 'comments/form', comment: comment, article: article
 
 = will_paginate comments

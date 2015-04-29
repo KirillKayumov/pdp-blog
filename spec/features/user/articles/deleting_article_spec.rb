@@ -12,6 +12,6 @@ feature 'Deleting article' do
   scenario 'User deletes the article' do
     click_link 'Delete'
 
-    expect(page).to have_content('Article succesfully deleted.')
+    expect(page).to have_content('Article was successfully destroyed.')
   end
 end

@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, only: %i(new create edit update destroy)
-  before_action :authorize_user!, only: %i(create edit update destroy)
+  before_action :authorize_user!, only: %i(edit update destroy)
 
   rescue_from Pundit::NotAuthorizedError, with: :redirect_with_alert
 
@@ -21,6 +21,7 @@ class ArticlesController < ApplicationController
   expose(:comments_presenter) { CommentPresenter.wrap(comments) }
 
   expose(:comment) { Comment.new }
+  expose(:comment_presenter) { CommentPresenter.wrap(comment) }
 
   def index
   end
@@ -32,6 +33,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
+    article.user = current_user
     article.save
     respond_with article, location: root_path
   end
@@ -52,7 +54,7 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :text).merge(user: current_user)
+    params.require(:article).permit(:title, :text)
   end
 
   def authorize_user!

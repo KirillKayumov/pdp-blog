@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Editing article' do
   let!(:user) { create :user }
   let!(:article) { create :article, user: user }
-  let(:article_presenter) { ArticlePresenter.wrap(article) }
+  let(:article_presenter) { ArticlePresenter.wrap(article.reload) }
 
   before do
     sign_in user.email, user.password
@@ -17,7 +17,7 @@ feature 'Editing article' do
       title: 'New title'
     )
 
-    expect(page).to have_content('Article succesfully updated.')
+    expect(page).to have_content('Article was successfully updated.')
     expect_to_see_article(article_presenter)
   end
 end

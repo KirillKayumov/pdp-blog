@@ -3,6 +3,10 @@ class CommentPresenter < ApplicationPresenter
 
   delegate :text, :user, to: :object
 
+  def self.model_name
+    Comment.model_name
+  end
+
   def initialize(object)
     @object = object
   end
@@ -19,19 +23,11 @@ class CommentPresenter < ApplicationPresenter
     user.full_name
   end
 
-  def link_to_destroy(current_user, article)
-    link_to(
-      I18n.t('app.actions.destroy'),
-      article_comment_path(article, object),
-      method: :delete,
-      remote: true,
-      data: { confirm: I18n.t('app.messages.sure') }
-    ) if can_manage?(current_user)
+  def managed_by?(user)
+    CommentPolicy.new(user, object).manage?
   end
 
-  private
-
-  def can_manage?(current_user)
-    ArticlePolicy.new(current_user, object).manage?
+  def created_by?(user)
+    CommentPolicy.new(user, object).new?
   end
 end

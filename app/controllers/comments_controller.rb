@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!, only: %i(create destroy)
-  before_action :authorize_user!, only: %i(create destroy)
+  before_action :authorize_user!, only: :destroy
 
   rescue_from Pundit::NotAuthorizedError, with: :redirect_with_alert
 
@@ -12,6 +12,7 @@ class CommentsController < ApplicationController
   expose(:comment_presenter) { CommentPresenter.wrap(comment) }
 
   def create
+    comment.user = current_user
     comment.save
     respond_with comment
   end
@@ -24,7 +25,7 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:text).merge(user: current_user)
+    params.require(:comment).permit(:text)
   end
 
   def authorize_user!
