@@ -19,7 +19,7 @@ class ArticlePresenter < ApplicationPresenter
     user.full_name
   end
 
-  def managed_by?(user)
+  def can_be_managed_by?(user)
     ArticlePolicy.new(user, object).manage?
   end
 end

@@ -23,11 +23,11 @@ class CommentPresenter < ApplicationPresenter
     user.full_name
   end
 
-  def managed_by?(user)
+  def can_be_managed_by?(user)
     CommentPolicy.new(user, object).manage?
   end
 
-  def created_by?(user)
+  def can_be_created_by?(user)
     CommentPolicy.new(user, object).new?
   end
 end

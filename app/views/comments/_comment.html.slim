@@ -5,7 +5,7 @@ article.comment id="comment-#{comment.object.id}"
     .comment-date
       = comment.created_at
 
-      - if comment.managed_by?(current_user)
+      - if comment.can_be_managed_by?(current_user)
         '  |
         = link_to t('app.actions.destroy'), [article, comment.object], method: :delete, remote: true, data: { confirm: I18n.t('app.messages.sure') }
 

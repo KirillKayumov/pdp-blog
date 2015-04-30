@@ -11,7 +11,7 @@
       '  by
       = article_presenter.author
 
-      - if article_presenter.managed_by?(current_user)
+      - if article_presenter.can_be_managed_by?(current_user)
         '  |
         = link_to t('app.actions.edit'), edit_article_path(article)
         '  |
@@ -27,7 +27,7 @@
 
     = render comments_presenter, article: article
 
-  - if comment_presenter.created_by?(current_user)
+  - if comment_presenter.can_be_created_by?(current_user)
     = render 'comments/form', comment: comment, article: article
 
 = will_paginate comments
