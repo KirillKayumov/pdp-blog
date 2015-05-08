@@ -9,6 +9,7 @@ feature 'Articles list' do
   scenario 'I see articles' do
     articles_presenter.each do |article|
       expect_to_see_article(article)
+      expect(page).to have_content("comments: #{article.comments_count}")
     end
   end
 end

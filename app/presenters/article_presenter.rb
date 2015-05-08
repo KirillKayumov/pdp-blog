@@ -1,7 +1,7 @@
 class ArticlePresenter < ApplicationPresenter
   attr_reader :object
 
-  delegate :title, :text, :user, to: :object
+  delegate :title, :text, :user, :comments_count, to: :object
 
   def initialize(object)
     @object = object
