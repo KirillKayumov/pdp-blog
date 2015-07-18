@@ -24,6 +24,9 @@ class ArticlesController < ApplicationController
   expose(:comment_presenter) { CommentPresenter.wrap(comment) }
 
   def index
+    logger.info request.location.ip
+    logger.info request.location.longitude
+    logger.info request.location.latitude
   end
 
   def show

@@ -36,6 +36,7 @@ gem 'faker'
 gem 'pundit'
 gem 'will_paginate'
 gem 'responders'
+gem 'geocoder'
 
 group :staging, :production do
   gem 'rails_12factor'
