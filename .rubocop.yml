@@ -18,6 +18,13 @@ Style/LineLength:
   Description: 'Limit lines to 120 characters.'
   Max: 120
 
+Style/ClosingParenthesisIndentation:
+  Enabled: false
+
+Metrics/AbcSize:
+  Exclude:
+    - spec/**/*
+
 Lint/EndAlignment:
   AlignWith: variable
   SupportedStyles:
